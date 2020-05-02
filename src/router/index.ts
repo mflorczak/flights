@@ -39,6 +39,14 @@ const routes: Array<RouteConfig> = [
       auth: false
     },
     component: () => import('@/views/Register.vue')
+  },
+  {
+    path: '/forgot-password',
+    name: 'ForgotPassword',
+    meta: {
+      auth: false
+    },
+    component: () => import('@/views/ForgotPassword.vue')
   }
 ];
 
