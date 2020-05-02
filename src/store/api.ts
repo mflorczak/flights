@@ -27,3 +27,10 @@ export async function registerUser(user: UserRegister): Promise<ApiResponse> {
   })
   return response.data
 }
+
+export async function forgotPassword(usernameOrEmail: string): Promise<ApiResponse> {
+  const response = await flightApi.post('api/auth/forgot-password', {
+    username: usernameOrEmail
+  })
+  return response.data
+}
