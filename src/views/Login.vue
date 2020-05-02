@@ -23,6 +23,7 @@
       <div class="button-placement">
         <button class="button login-button" :disabled="password.length < 1 || usernameOrEmail.length < 1" @click="login">Zaloguj</button>
         <button class="button registration-button" @click="register">Rejestracja</button>
+        <button class="button forgot-password-button" @click="redirectToPasswordResetView">Reset hasła</button>
       </div>
       </form>
     </div>
@@ -55,6 +56,10 @@ export default class Login extends Vue {
 
   register() {
     this.$router.push('/register')
+  }
+
+  redirectToPasswordResetView() {
+    this.$router.push('/forgot-password')
   }
 }
 </script>
@@ -96,6 +101,10 @@ export default class Login extends Vue {
 .login-button
   @extend .registration-button
   background: #A6A3A3
+
+.forgot-password-button
+  @extend .registration-button
+  background: #AD89C9
 
 .input-field
   width: 282px
