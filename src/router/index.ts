@@ -31,6 +31,14 @@ const routes: Array<RouteConfig> = [
     path: '/login',
     name: 'Login',
     component: Login
+  },
+  {
+    path: '/register',
+    name: 'Register',
+    meta: {
+      auth: false
+    },
+    component: () => import('@/views/Register.vue')
   }
 ];
 
