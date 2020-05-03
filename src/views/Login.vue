@@ -15,15 +15,14 @@
         <b-input class="input-field"
           type="password"
           v-model="password"
-          password-reveal
           placeholder="Twoje hasło"
           required
         >
         </b-input>
       <div class="button-placement">
         <button class="button login-button" :disabled="password.length < 1 || usernameOrEmail.length < 1" @click="login">Zaloguj</button>
-        <button class="button registration-button" @click="register">Rejestracja</button>
-        <button class="button forgot-password-button" @click="redirectToPasswordResetView">Reset hasła</button>
+        <button type="button" class="button registration-button" @click="register()">Rejestracja</button>
+        <button type="button" class="button forgot-password-button" @click="redirectToPasswordResetView()">Reset hasła</button>
       </div>
       </form>
     </div>

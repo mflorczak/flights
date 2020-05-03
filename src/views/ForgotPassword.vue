@@ -10,7 +10,8 @@
         </b-field>
 
         <div class="button-placement">
-          <button class="button reset-button" :disabled="usernameOrEmail.length < 1" @click="resetPassword">Zresetuj</button>
+          <button class="button reset-button" :disabled="usernameOrEmail.length < 1" @click="resetPassword()">Zresetuj</button>
+          <button type="button" class="button cancel-button is-danger" @click="routTologin()">Anuluj</button>
         </div>
       </form>
     </div>
@@ -30,9 +31,13 @@ export default class ForgotPassword extends Vue {
     forgotPassword(this.usernameOrEmail)
     .then(response => {
       console.log(response)
-      this.$router.push('/login')
+      this.routTologin()
     })
     .catch(error => console.log(error.response.data.message))
+  }
+
+  routTologin() {
+    this.$router.push('/login')
   }
 }
 </script>
@@ -69,6 +74,9 @@ export default class ForgotPassword extends Vue {
 
   background: #21D0C3
   border-radius: 20px
+
+.cancel-button
+  @extend .reset-button
 
 .input-field
   width: 282px

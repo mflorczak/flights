@@ -34,3 +34,10 @@ export async function forgotPassword(usernameOrEmail: string): Promise<ApiRespon
   })
   return response.data
 }
+
+export async function changePassword(email: string, password: string): Promise<ApiResponse> {
+  const response = await flightApi.post('api/auth/reset-password', {
+    email, password
+  })
+  return response.data
+}

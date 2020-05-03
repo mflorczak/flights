@@ -1,6 +1,6 @@
 import store from '@/store'
-import { Module, VuexModule, getModule, MutationAction } from 'vuex-module-decorators'
-import { loginUser, setJWT } from '../api'
+import { Module, VuexModule, getModule, MutationAction, Action, Mutation } from 'vuex-module-decorators'
+import { loginUser, setJWT, clearJWT } from '../api'
 import { User, UserSubmit } from '../models'
 
 
@@ -14,12 +14,27 @@ class UserModule extends VuexModule {
     return this.user?.accessToken
   }
 
+  get email() {
+    return this.user?.emailAddress
+  }
+
+  @Mutation
+  setUser(user: User) {
+    this.user = user
+  }
+
   @MutationAction
   async login(userSubmit: UserSubmit) {
     const user = await loginUser(userSubmit)
-    console.log(JSON.stringify(user))
     setJWT(user.accessToken)
     return { user }
+  }
+
+  @Action({ rawError: true })
+  async logout() {
+    const user: User = {accessToken: '', emailAddress: '', username: ''}
+    this.setUser(user)
+    clearJWT()
   }
 
 }

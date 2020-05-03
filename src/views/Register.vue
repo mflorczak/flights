@@ -32,19 +32,19 @@
 
           <ValidationProvider rules="required" vid="password" v-slot="{ errors, valid }">
             <b-field :type="{ 'is-danger': errors[0], 'is-success': valid }" :message="errors">
-              <b-input class="input-field" type="password" v-model="password" password-reveal placeholder="Twoje hasło" required></b-input>
+              <b-input class="input-field" type="password" v-model="password" placeholder="Twoje hasło" required></b-input>
             </b-field>
           </ValidationProvider>
 
           <ValidationProvider rules="required|confirmed:password" v-slot="{ errors, valid }">
             <b-field :type="{ 'is-danger': errors[0], 'is-success': valid }" :message="errors">
-              <b-input class="input-field" type="password" v-model="theSamePassword" password-reveal placeholder="Powtórz hasło" required> </b-input>
+              <b-input class="input-field" type="password" v-model="theSamePassword" placeholder="Powtórz hasło" required> </b-input>
             </b-field>
           </ValidationProvider>
 
           <div class="button-placement">
-            <button class="button registration-button" :disabled="invalid" @click="register">Zarejestruj</button>
-            <button class="button login-button" @click="cancel">Anuluj</button>
+            <button class="button registration-button" :disabled="invalid" @click="register()">Zarejestruj</button>
+            <button type="button" class="button login-button" @click="cancel()">Anuluj</button>
           </div>
 
         </ValidationObserver>
@@ -131,7 +131,7 @@ export default class Register extends Vue {
   width: 282px
   height: 47px
   margin: 0 auto
-  padding: 10px
+//   padding: 10px
 
 .button-placement
   display: inline-grid

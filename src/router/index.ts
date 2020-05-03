@@ -12,7 +12,7 @@ const routes: Array<RouteConfig> = [
     name: "Home",
     component: Home,
     meta: {
-      auth: true
+      auth: false
     }
   },
   {
@@ -55,9 +55,7 @@ const router = new VueRouter({
 });
 
 router.beforeEach((to, from, next) => {
-  console.log('bronimy')
   const accessToken = users.accessToken
-  console.log(accessToken)
   if (to.meta.auth && !accessToken) {
     next('/login')
   } else {
