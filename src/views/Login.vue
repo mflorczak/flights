@@ -1,32 +1,18 @@
 <template>
   <div class="login-container">
-    <div class="login-form">
       <div class="logo">
         <img src="../assets/password-login-svgrepo-com.svg">
       </div>
-      <form action="" class="form">
-        <b-input class="input-field"
-          v-model="usernameOrEmail"
-          placeholder="Twój login lub email"
-          required
-        >
-        </b-input>
+      <form class="login-form">
+        <input class="input-field" v-model="usernameOrEmail" placeholder="Twój login lub email" required>
+        <input class="input-field" type="password" v-model="password" placeholder="Twoje hasło" required>
 
-        <b-input class="input-field"
-          type="password"
-          v-model="password"
-          placeholder="Twoje hasło"
-          required
-        >
-        </b-input>
-      <div class="button-placement">
-        <button class="button login-button" :disabled="password.length < 1 || usernameOrEmail.length < 1" @click="login">Zaloguj</button>
-        <button type="button" class="button registration-button" @click="register()">Rejestracja</button>
+        <button class="button login-button" :disabled="!password || !usernameOrEmail" @click="login">Zaloguj</button>
+        <button type="button" class="registration-button" @click="register()">Rejestracja</button>
         <button type="button" class="button forgot-password-button" @click="redirectToPasswordResetView()">Reset hasła</button>
-      </div>
+
       </form>
     </div>
-  </div>
 </template>
 
 <script lang="ts">
@@ -65,37 +51,65 @@ export default class Login extends Vue {
 
 
 <style lang="sass" scoped>
-.login-form
-  position: absolute
-  top: 50%
-  left: 50%
-  transform: translate(-50%, -50%)
-.logo
-  height: 300px
-  width: 300px
-  display: inline-block
-  margin: 0 auto
-  padding: 3px
-  .form
-    display: flex
-    flex-direction: column
-    justify-content: column
+@mixin for-phone-only
+  @media (max-width: 1300px)
+    @content
+
+@mixin for-pc-only
+  @media (min-width: 1301px)
+    @content
 
 .login-container
-  position: absolute
+  display: flex
   width: 100vw
   height: 100vh
-  background: linear-gradient(180deg, #52B0F4 0%, rgba(169, 205, 232, 0) 100%);
+  flex-flow: row wrap
+  align-items: center
+  justify-content: center
+  background: linear-gradient(180deg, #52B0F4 0%, rgba(169, 205, 232, 0) 100%)
+
+.logo
+  @include for-phone-only
+    width: 19em
+
+  @include for-pc-only
+    width: 40em
+    // size: 500px
+
+.login-form
+  display: flex
+  flex-flow: column wrap
+  align-items: center
+  justify-content: space-between
+  @include for-phone-only
+    height: 35vh
+
+  @include for-pc-only
+    height: 20em
+    width: 30em
+
+
+.input-field
+  line-height: 0.9em
+  font-size: 1.5em
+  border-radius: 5px
+  width: 90%
+  text-align: center
 
 .registration-button
-  width: 282px
-  height: 47px
-  margin: 5px
-
   box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25)
-
   background: #21D0C3
   border-radius: 20px
+  @include for-phone-only
+    width: 10em
+    height: 7vh
+    // line-height: 2em
+    font-size: 1.5em
+
+  @include for-pc-only
+    width: 30vw
+    height: 50px
+    font-size: 23px
 
 .login-button
   @extend .registration-button
@@ -104,13 +118,4 @@ export default class Login extends Vue {
 .forgot-password-button
   @extend .registration-button
   background: #AD89C9
-
-.input-field
-  width: 282px
-  height: 47px
-  margin: 0 auto
-  padding: 10px
-
-.button-placement
-  display: inline-grid
 </style>
