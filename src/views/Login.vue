@@ -100,6 +100,7 @@ export default class Login extends Vue {
   box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25)
   background: #21D0C3
   border-radius: 20px
+  max-width: 400px
   @include for-phone-only
     width: 10em
     height: 7vh

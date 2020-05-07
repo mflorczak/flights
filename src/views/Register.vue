@@ -1,11 +1,10 @@
 <template>
-  <div class="login-container">
-    <div class="login-form">
+  <div class="register-container">
       <div class="logo">
         <img src="../assets/password-login-svgrepo-com.svg">
       </div>
-      <form action="" class="form">
-        <ValidationObserver v-slot="{ invalid }">
+      <form>
+        <ValidationObserver v-slot="{ invalid }" class="register-form">
           <ValidationProvider rules="required" v-slot="{ errors, valid }">
           <b-field :type="{ 'is-danger': errors[0], 'is-success': valid }" :message="errors">
             <b-input class="input-field" v-model="name" placeholder="Imię" required></b-input>
@@ -42,14 +41,13 @@
             </b-field>
           </ValidationProvider>
 
-          <div class="button-placement">
+          <!-- <div class="button-placement"> -->
             <button class="button registration-button" :disabled="invalid" @click="register()">Zarejestruj</button>
             <button type="button" class="button login-button" @click="cancel()">Anuluj</button>
-          </div>
+          <!-- </div> -->
 
         </ValidationObserver>
       </form>
-    </div>
   </div>
 </template>
 
@@ -91,48 +89,58 @@ export default class Register extends Vue {
 </script>
 
 <style lang="sass" scoped>
-.login-form
-  position: absolute
-  top: 50%
-  left: 50%
-  transform: translate(-50%, -50%)
-.logo
-  height: 300px
-  width: 300px
-  display: inline-block
-  margin: 0 auto
-  padding: 3px
-  .form
-    display: flex
-    flex-direction: column
-    justify-content: column
+@mixin for-phone-only
+  @media (max-width: 1300px)
+    @content
 
-.login-container
-  position: absolute
+@mixin for-pc-only
+  @media (min-width: 1301px)
+    @content
+
+
+.register-container
+  display: flex
+  flex-flow: row wrap
+  justify-content: center
+  align-items: center
   width: 100vw
   height: 100vh
-  background: linear-gradient(180deg, #52B0F4 0%, rgba(169, 205, 232, 0) 100%);
+  background: linear-gradient(180deg, #52B0F4 0%, rgba(169, 205, 232, 0) 100%)
+
+.register-form
+  display: flex
+  flex-flow: column nowrap
+  justify-content: center
+
+
+.logo
+  // margin: 20px
+  @include for-phone-only
+    width: 15em
+  @include for-pc-only
+    width: 25em
 
 .registration-button
-  width: 282px
-  height: 47px
-  margin: 5px
-
   box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25)
-
   background: #21D0C3
   border-radius: 20px
+  max-width: 400px
+  @include for-phone-only
+    width: 10em
+    height: 7vh
+    // line-height: 2em
+    font-size: 1.5em
+
+  @include for-pc-only
+    width: 30vw
+    height: 50px
+    font-size: 23px
 
 .login-button
   @extend .registration-button
   background: #A6A3A3
 
-.input-field
-  width: 282px
-  height: 47px
-  margin: 0 auto
-//   padding: 10px
 
-.button-placement
-  display: inline-grid
+// .button-placement
+//   display: inline-grid
 </style>
