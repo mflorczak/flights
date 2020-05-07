@@ -1,21 +1,5 @@
 <template>
-  <nav class="navbar">
-    <b-dropdown aria-role="menu" trap-focus style="margin-right: 6px" position="is-bottom-left">
-      <button class="button" slot="trigger" slot-scope="{ active }">
-        <b-icon pack="fas" icon="user" size="is-large"></b-icon>
-        <span>{{userEmail}}</span>
-        <b-icon pack="fas" :icon="active ? 'caret-up' : 'caret-down'" size="is-large"></b-icon>
-      </button>
-      <b-dropdown-item aria-role="listitem" @click="openChangePasswordModal()">
-        <b-icon pack="fas" icon="key" size="is-medium"></b-icon>
-        <span>Zmień hasło</span>
-      </b-dropdown-item>
-      <b-dropdown-item aria-role="listitem" @click="signout()">
-        <b-icon pack="fas" icon="sign-out-alt" size="is-medium"></b-icon>
-        <span>Wyloguj</span>
-      </b-dropdown-item>
-    </b-dropdown>
-  </nav>
+  <Navbar/>
 </template>
 
 <script lang="ts">
@@ -23,8 +7,13 @@ import Vue from 'vue'
 import Component from 'vue-class-component'
 import { Getter, Action } from 'vuex-class'
 import ChangePassword from './ChanePassword.vue'
+import Navbar from '../components/Navbar.vue'
 
-@Component
+@Component({
+  components: {
+    Navbar
+  }
+})
 export default class Home extends Vue {
 
   @Getter('email')
