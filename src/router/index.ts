@@ -12,12 +12,12 @@ const routes: Array<RouteConfig> = [
     name: "Home",
     component: Home,
     meta: {
-      auth: false
+      auth: true
     }
   },
   {
-    path: "/about",
-    name: "About",
+    path: "/flights",
+    name: "Flights",
     meta: {
       auth: true
     },
@@ -25,7 +25,7 @@ const routes: Array<RouteConfig> = [
     // this generates a separate chunk (about.[hash].js) for this route
     // which is lazy-loaded when the route is visited.
     component: () =>
-      import(/* webpackChunkName: "about" */ "../views/About.vue")
+      import(/* webpackChunkName: "about" */ "../views/Flights.vue")
   },
   {
     path: '/login',
