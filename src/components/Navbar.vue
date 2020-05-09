@@ -1,5 +1,7 @@
 <template>
   <nav class="navbar">
+    <router-link to="/"> Wyszukiwarka lotów </router-link>
+    <router-link to="/flights"> Zarezerwowane loty </router-link>
     <b-dropdown aria-role="menu" trap-focus style="margin-right: 6px" position="is-bottom-left">
       <button class="button" slot="trigger" slot-scope="{ active }">
         <b-icon pack="fas" icon="user" size="is-large"></b-icon>
@@ -38,10 +40,6 @@ export default class Navbar extends Vue {
       .then(() => this.$router.push('/login'))
   }
 
-  test() {
-    console.log('test')
-  }
-
   openChangePasswordModal() {
     this.$buefy.modal.open({
       parent: this,
@@ -59,8 +57,8 @@ export default class Navbar extends Vue {
   .navbar
     height: 50px
     display: flex
-    flex-flow: row nowrap
-    justify-content: flex-end
+    flex-flow: row wrap
+    justify-content: space-around
     align-items: center
     background: red
 </style>
