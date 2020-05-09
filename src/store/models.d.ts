@@ -32,9 +32,11 @@ export interface City {
 }
 
 export interface Flight {
+  id: number
+  airLineImgUrl: string
   originCity: City
   destinationCity: City
   departureDateTime: Date
-  arrivalDateTime: Date
-  directionality: string
+  arrivalDateTime: Date,
+  flightNumber: string
 }
