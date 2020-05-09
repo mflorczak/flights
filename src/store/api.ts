@@ -1,5 +1,5 @@
 import axios from 'axios'
-import { UserSubmit, User, UserRegister, ApiResponse } from './models'
+import { UserSubmit, User, UserRegister, ApiResponse, City, Flight } from './models'
 
 export const flightApi = axios.create({
     baseURL: 'http://localhost:8080',
@@ -41,3 +41,25 @@ export async function changePassword(email: string, password: string): Promise<A
   })
   return response.data
 }
+
+export async function searchCity(cityName: string): Promise<City[]> {
+  const response = await flightApi.get(`api/cities`, {
+    params: {
+      cityName
+    }
+  })
+  return response.data
+}
+
+export async function searchFlights(originPlaceId: string, destinationPlaceId: string, outboundDate: Date, inboundDate: Date): Promise<Flight[]> {
+  const response = await flightApi.get(`/search/file`, {
+    params: {
+      originPlaceId,
+      destinationPlaceId,
+      outboundDate,
+      inboundDate
+    }
+  })
+  return response.data
+}
+
