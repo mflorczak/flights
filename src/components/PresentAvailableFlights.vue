@@ -16,13 +16,13 @@
             </b-table-column>
 
             <b-table-column field="departureDateTime" label="Data wylotu" centered>
-                <span class="tag is-success">
+                <span class="tag is-warning">
                     {{ prettyPrintDate(props.row.departureDateTime) }}
                 </span>
             </b-table-column>
 
              <b-table-column field="arrivalDateTime" label="Data przylotu" centered>
-                <span class="tag is-success">
+                <span class="tag is-warning">
                     {{ prettyPrintDate(props.row.arrivalDateTime) }}
                 </span>
             </b-table-column>
@@ -51,6 +51,7 @@ import { Component, Prop, Vue } from 'vue-property-decorator'
 import { Flight } from '../store/models'
 import { Getter } from 'vuex-class'
 import { bookFlight } from '../store/api'
+import { showError } from '@/helper/showNotification'
 
 @Component
 export default class PresentAvailableFlights extends Vue {
@@ -69,7 +70,7 @@ export default class PresentAvailableFlights extends Vue {
   bookFlight(flight: any) {
     bookFlight(this.userEmail, flight)
     .then(console.log)
-    .catch(error => console.log(error.response.data.message))
+    .catch(showError)
     .finally(() => this.isBooking = false)
   }
 }
