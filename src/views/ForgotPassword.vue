@@ -15,6 +15,7 @@
 import Vue from 'vue'
 import Component from 'vue-class-component';
 import { forgotPassword } from '../store/api';
+import { showError } from '@/helper/showNotification';
 
 @Component
 export default class ForgotPassword extends Vue {
@@ -26,7 +27,7 @@ export default class ForgotPassword extends Vue {
       console.log(response)
       this.routTologin()
     })
-    .catch(error => console.log(error.response.data.message))
+    .catch(showError)
   }
 
   routTologin() {

@@ -61,6 +61,7 @@ import { ValidationProvider, ValidationObserver } from 'vee-validate'
 import { Getter } from 'vuex-class';
 import { changePassword } from '@/store/api';
 import { Emit } from 'vue-property-decorator';
+import { showError } from '@/helper/showNotification';
 
 @Component({
   components: {
@@ -83,7 +84,7 @@ export default class ChangePassword extends Vue {
   changePassword() {
     changePassword(this.userEmail, this.password)
     .then(respone => {console.log(respone); this.close()})
-    .catch(error => {console.log(error.response.data.message); this.close()})
+    .catch(error => { showError(error); this.close()})
   }
 }
 </script>

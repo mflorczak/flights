@@ -21,6 +21,7 @@ import Component from 'vue-class-component';
 import { Action } from 'vuex-class'
 import users from '@/store/modules/users'
 import { UserSubmit } from '../store/models';
+import { showError } from '../helper/showNotification'
 
 
 @Component
@@ -36,7 +37,7 @@ export default class Login extends Vue {
 
     users.login(user)
       .then(() => this.$router.push('/'))
-      .catch(error => console.log(error.response.data.message))
+      .catch(showError)
   }
 
   register() {

@@ -56,6 +56,7 @@ import Vue from 'vue'
 import Component from 'vue-class-component';
 import { ValidationProvider, ValidationObserver } from 'vee-validate'
 import { registerUser } from '../store/api'
+import { showError } from '@/helper/showNotification';
 
 @Component({
   components: {
@@ -79,7 +80,7 @@ export default class Register extends Vue {
       password: this.password,
       username: this.login
     }).then(reponse => console.log(reponse))
-    .catch(error => console.log(error.response.data.message))
+    .catch(showError)
   }
 
   cancel() {
