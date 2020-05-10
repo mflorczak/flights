@@ -84,3 +84,7 @@ export async function bookedUserFlights(usernameOrEmail: string): Promise<Flight
   return flights
 }
 
+export async function cancelBookedFlight(usernameOrEmail: string, flightId: number) {
+  return await flightApi.delete(`booking/cancel-flight?usernameOrEmail=${usernameOrEmail}&flightId=${flightId}`)
+}
+

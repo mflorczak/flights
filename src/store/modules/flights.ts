@@ -1,6 +1,6 @@
 import store from '@/store'
 import { Module, VuexModule, getModule, MutationAction, Action, Mutation } from 'vuex-module-decorators'
-import { bookedUserFlights, } from '../api'
+import { bookedUserFlights, cancelBookedFlight, } from '../api'
 import { Flight } from '../models'
 
 
@@ -23,6 +23,15 @@ class FlightModule extends VuexModule {
   @Action
   addFlight(flight: Flight) {
     this.setFlight(flight)
+  }
+
+  @MutationAction
+  async cancelFlight(usernameOrEmail:string, flightId: number) {
+    await cancelBookedFlight(usernameOrEmail, flightId)
+    let index = this.flights.findIndex(flight => flight.id === flightId)
+    delete this.flights[index]
+    let flights  = this.flights
+    return { flights }
   }
 
   @MutationAction
