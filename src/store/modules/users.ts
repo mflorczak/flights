@@ -1,9 +1,9 @@
 import store from '@/store'
 import { Module, VuexModule, getModule, MutationAction, Action, Mutation } from 'vuex-module-decorators'
-import { loginUser, setJWT, clearJWT } from '../api'
+import { loginUser } from '../api'
 import { User, UserSubmit } from '../models'
-
-
+import Cookies from 'js-cookie'
+import { setAccessToken, setEmail, getEmail, getAccessToken, clearCredentials } from '../cookies'
 
 @Module({ dynamic: true, store, name: 'users' })
 class UserModule extends VuexModule {
@@ -11,11 +11,11 @@ class UserModule extends VuexModule {
   user: User | null = null
 
   get accessToken() {
-    return this.user?.accessToken
+    return getAccessToken()
   }
 
   get email() {
-    return this.user?.emailAddress
+    return getEmail()
   }
 
   @Mutation
@@ -26,7 +26,8 @@ class UserModule extends VuexModule {
   @MutationAction
   async login(userSubmit: UserSubmit) {
     const user = await loginUser(userSubmit)
-    setJWT(user.accessToken)
+    setAccessToken(user.accessToken)
+    setEmail(user.emailAddress)
     return { user }
   }
 
@@ -34,7 +35,7 @@ class UserModule extends VuexModule {
   async logout() {
     const user: User = {accessToken: '', emailAddress: '', username: ''}
     this.setUser(user)
-    clearJWT()
+    clearCredentials()
   }
 
 }
