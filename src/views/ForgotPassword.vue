@@ -5,7 +5,7 @@
       </div>
       <form class="login-form">
         <b-input class="input-field" v-model="usernameOrEmail" placeholder="Nazwa użytkownika lub email"></b-input>
-        <button class="button reset-button" :disabled="usernameOrEmail.length < 1" @click="resetPassword()">Zresetuj</button>
+        <button class="button reset-button" :disabled="(usernameOrEmail.length < 1 || isBlocked)" @click="resetPassword()">Zresetuj</button>
         <button type="button" class="button cancel-button is-danger" @click="routTologin()">Anuluj</button>
       </form>
   </div>
@@ -15,23 +15,31 @@
 import Vue from 'vue'
 import Component from 'vue-class-component';
 import { forgotPassword } from '../store/api';
-import { showError } from '@/helper/showNotification';
+import { showError, showSuccess } from '@/helper/showNotification';
 
 @Component
 export default class ForgotPassword extends Vue {
   private usernameOrEmail: string = ''
+  private isBlocked: boolean = false
 
   resetPassword() {
+    this.isBlocked = true
     forgotPassword(this.usernameOrEmail)
     .then(response => {
-      console.log(response)
+      showSuccess(response)
       this.routTologin()
     })
-    .catch(showError)
+    .catch(err => {
+      this.isBlocked = false
+      showError(err)
+    })
   }
 
   routTologin() {
-    this.$router.push('/login')
+    setTimeout(() => {
+        this.isBlocked = false
+        this.$router.push('/login')
+      }, 3000)
   }
 }
 </script>

@@ -41,10 +41,8 @@
             </b-field>
           </ValidationProvider>
 
-          <!-- <div class="button-placement"> -->
             <button class="button registration-button" :disabled="invalid" @click="register()">Zarejestruj</button>
             <button type="button" class="button login-button" @click="cancel()">Anuluj</button>
-          <!-- </div> -->
 
         </ValidationObserver>
       </form>
@@ -56,7 +54,7 @@ import Vue from 'vue'
 import Component from 'vue-class-component';
 import { ValidationProvider, ValidationObserver } from 'vee-validate'
 import { registerUser } from '../store/api'
-import { showError } from '@/helper/showNotification';
+import { showError, showSuccess } from '@/helper/showNotification';
 
 @Component({
   components: {
@@ -79,7 +77,7 @@ export default class Register extends Vue {
       email: this.email,
       password: this.password,
       username: this.login
-    }).then(reponse => console.log(reponse))
+    }).then(showSuccess)
     .catch(showError)
   }
 
@@ -115,7 +113,6 @@ export default class Register extends Vue {
 
 
 .logo
-  // margin: 20px
   @include for-phone-only
     width: 15em
   @include for-pc-only
@@ -129,7 +126,6 @@ export default class Register extends Vue {
   @include for-phone-only
     width: 10em
     height: 7vh
-    // line-height: 2em
     font-size: 1.5em
 
   @include for-pc-only
@@ -141,7 +137,4 @@ export default class Register extends Vue {
   @extend .registration-button
   background: #A6A3A3
 
-
-// .button-placement
-//   display: inline-grid
 </style>
