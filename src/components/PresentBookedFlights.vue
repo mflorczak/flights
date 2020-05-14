@@ -59,12 +59,12 @@ import { bookFlight, bookedUserFlights } from '../store/api'
 import flights from '@/store/modules/flights'
 
 @Component
-export default class PresenBookedFlights extends Vue {
+export default class PresentBookedFlights extends Vue {
 
   @Getter('email')
   private userEmail!: string
 
-  @Getter('getFlights')
+  @Getter('bookedFlights')
   private flights!: Flight[]
 
   prettyPrintDate(date: Date) {
@@ -76,15 +76,19 @@ export default class PresenBookedFlights extends Vue {
   }
 
   cancelFlight(flight: Flight) {
-    console.log(flight)
-    this.$buefy.dialog.confirm({
+    let id: number = flight.id
+    // console.log(id)
+      this.$buefy.dialog.confirm({
                     title: 'Anulowanie rezerwacji',
                     message: `Czy napewno chcesz <strong>anlulować</strong> rezerwację?`,
                     cancelText: 'Anuluj',
                     confirmText: 'Potwierdź',
-                    type: 'is-success',
-                    onConfirm: () => this.$buefy.toast.open('Usunięto rezerwację')
-    })
+                    type: 'is-warning',
+                    onConfirm: () => {
+                    flights.cancelFlight({ usernameOrEmail: this.userEmail, flightId: id})
+                    }
+                    // .then(() => {console.log(f.id); resolve()})
+      })
   }
 
 }

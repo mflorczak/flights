@@ -1,19 +1,16 @@
 import axios from 'axios'
 import { UserSubmit, User, UserRegister, ApiResponse, City, Flight } from './models'
 import { mapResponseOnFlight } from '@/helper/flightHelper'
+import Cookies from 'js-cookie'
+import { getAccessToken } from './cookies'
 
 export const flightApi = axios.create({
     baseURL: 'http://localhost:8080/api',
-    headers: {'Accept-Language': 'pl'}
+    headers: {
+      'Accept-Language': 'pl',
+      'Authorization': `${getAccessToken()}`
+    }
   })
-
-export function setJWT(jwt: string) {
-  flightApi.defaults.headers.common['Authorization'] = jwt
-}
-
-export function clearJWT() {
-  delete flightApi.defaults.headers.common['Authorization']
-}
 
 export async function loginUser(user: UserSubmit): Promise<User> {
   const response = await flightApi.post('auth/signin', {
@@ -84,7 +81,7 @@ export async function bookedUserFlights(usernameOrEmail: string): Promise<Flight
   return flights
 }
 
-export async function cancelBookedFlight(usernameOrEmail: string, flightId: number) {
+export async function cancelBookedFlight(usernameOrEmail: string, flightId: Number) {
   return await flightApi.delete(`booking/cancel-flight?usernameOrEmail=${usernameOrEmail}&flightId=${flightId}`)
 }
 
