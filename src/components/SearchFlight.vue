@@ -3,7 +3,7 @@
     <SearchCity @selected-city="setOriginCity"/>
     <SearchCity @selected-city="setDestinationCity"/>
     <PickDate @dates-range="setStayDate"/>
-    <button class="button" :disabled="!originCity || !destinationCity || !stayDate" @click="searchFlights"> Wyszukaj loty </button>
+    <button class="button" :disabled="isBlocedSearching()" @click="searchFlights"> Wyszukaj loty </button>
     <PresentAvailableFlights :flights="flights"/>
   </div>
 </template>
@@ -52,6 +52,10 @@ export default class SearchFlight extends Vue {
   public searchFlights() {
     searchFlights(this.originCity?.id!, this.destinationCity?.id!, this.stayDate[0], this.stayDate[1])
     .then(flights => this.flights = flights)
+  }
+
+  isBlocedSearching() {
+   return !this.originCity || !this.destinationCity || !this.stayDate
   }
 }
 </script>
