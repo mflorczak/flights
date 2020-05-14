@@ -10,7 +10,7 @@ class FlightModule extends VuexModule {
 
   flights: Flight[] = []
 
-  get getFlights() {
+  get bookedFlights() {
     return this.flights
   }
 
@@ -26,18 +26,15 @@ class FlightModule extends VuexModule {
   }
 
   @MutationAction
-  async cancelFlight(usernameOrEmail:string, flightId: number) {
-    await cancelBookedFlight(usernameOrEmail, flightId)
-    let index = this.flights.findIndex(flight => flight.id === flightId)
-    delete this.flights[index]
-    let flights  = this.flights
+  async cancelFlight(flightInfo: {usernameOrEmail: string, flightId: number}) {
+    await cancelBookedFlight(flightInfo.usernameOrEmail, flightInfo.flightId)
+    const flights = await bookedUserFlights(flightInfo.usernameOrEmail)
     return { flights }
   }
 
   @MutationAction
   async fetchUserFlights(usernameOrEmail: string) {
     const flights = await bookedUserFlights(usernameOrEmail)
-    console.log(flights)
     return { flights }
   }
 
