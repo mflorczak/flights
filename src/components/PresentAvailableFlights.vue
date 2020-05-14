@@ -68,6 +68,7 @@ export default class PresentAvailableFlights extends Vue {
   }
 
   bookFlight(flight: any) {
+    this.isBooking = true
     bookFlight(this.userEmail, flight)
     .then(console.log)
     .catch(showError)
