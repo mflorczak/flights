@@ -1,40 +1,41 @@
 <template>
     <section>
-      <b-table :data="flights">
+      <b-table :data="flights" scrollable sticky-header height="80vh">
         <template slot-scope="props">
 
-          <b-table-column label="Logo lini">
+          <b-table-column label="Logo lini" cell-class="background-table-color">
             <img width="100" :src="`${props.row.airLineImgUrl}`">
           </b-table-column>
 
-          <b-table-column label="Skąd">
+          <b-table-column label="Skąd" cell-class="background-table-color">
               {{ props.row.originCity.Name }}
           </b-table-column>
 
-          <b-table-column label="Dokąd">
+          <b-table-column label="Dokąd" cell-class="background-table-color">
               {{ props.row.destinationCity.Name }}
           </b-table-column>
 
-          <b-table-column field="departureDateTime" label="Data wylotu" centered>
-              <span class="tag is-success">
-                  {{ prettyPrintDate(props.row.departureDateTime) }}
-              </span>
-          </b-table-column>
-
-          <b-table-column field="arrivalDateTime" label="Data przylotu" centered>
-            <span class="tag is-success">
-                {{ prettyPrintDate(props.row.arrivalDateTime) }}
+          <b-table-column field="departureDateTime" label="Data wylotu" centered cell-class="background-table-color">
+            <span class="tag" style="background: white">
+              {{ prettyPrintDate(props.row.departureDateTime) }}
             </span>
           </b-table-column>
 
-          <b-table-column field="flightNumber" label="Numer lotu" centered>
-            <span class="tag is-info">
+          <b-table-column field="arrivalDateTime" label="Data przylotu" centered cell-class="background-table-color">
+            <span class="tag" style="background: white">
+              {{ prettyPrintDate(props.row.arrivalDateTime) }}
+            </span>
+          </b-table-column>
+
+          <b-table-column field="flightNumber" label="Numer lotu" centered cell-class="background-table-color">
+            <span class="tag" style="background: #0E0235; color: white">
                 {{ props.row.flightNumber }}
             </span>
           </b-table-column>
 
-          <b-table-column label="Rezerwacja" centered>
-            <button class="button is-danger" @click="cancelFlight(props.row)">Anuluj Rezerwację</button>
+
+          <b-table-column label="Rezerwacja" centered cell-class="background-table-color">
+            <button class="button cancel-button-color" @click="cancelFlight(props.row)">Anuluj Rezerwację</button>
           </b-table-column>
 
         </template>
@@ -77,19 +78,26 @@ export default class PresentBookedFlights extends Vue {
 
   cancelFlight(flight: Flight) {
     let id: number = flight.id
-    // console.log(id)
-      this.$buefy.dialog.confirm({
-                    title: 'Anulowanie rezerwacji',
-                    message: `Czy napewno chcesz <strong>anlulować</strong> rezerwację?`,
-                    cancelText: 'Anuluj',
-                    confirmText: 'Potwierdź',
-                    type: 'is-warning',
-                    onConfirm: () => {
-                    flights.cancelFlight({ usernameOrEmail: this.userEmail, flightId: id})
-                    }
-                    // .then(() => {console.log(f.id); resolve()})
-      })
+    this.$buefy.dialog.confirm({
+                  title: 'Anulowanie rezerwacji',
+                  message: `Czy napewno chcesz <strong>anlulować</strong> rezerwację?`,
+                  cancelText: 'Anuluj',
+                  confirmText: 'Potwierdź',
+                  type: 'is-warning',
+                  onConfirm: () => {
+                  flights.cancelFlight({ usernameOrEmail: this.userEmail, flightId: id})
+                  }
+
+    })
   }
 
 }
 </script>
+
+<style lang="sass">
+.background-table-color
+  background: #E0E8ED !important
+.cancel-button-color
+  background: #F8AB1D
+  color: white
+</style>

@@ -1,8 +1,8 @@
 <template>
   <nav class="navbar">
-    <router-link to="/"> Wyszukiwarka lotów </router-link>
-    <router-link to="/flights"> Zarezerwowane loty </router-link>
-    <b-dropdown aria-role="menu" trap-focus style="margin-right: 6px" position="is-bottom-left">
+    <router-link to="/" style="margin: 5px"> <button class="button" style="background: white; color: black">  Wyszukiwarka lotów </button> </router-link>
+    <router-link to="/flights" style="margin: 5px"> <button class="button" style="background: white; color: black">  Zarezerwowane loty  </button> </router-link>
+    <b-dropdown aria-role="menu" trap-focus position="is-bottom-left" style="margin: 5px">
       <button class="button" slot="trigger" slot-scope="{ active }">
         <b-icon pack="fas" icon="user" size="is-large"></b-icon>
         <span>{{userEmail}}</span>
@@ -54,11 +54,22 @@ export default class Navbar extends Vue {
 </script>
 
 <style lang="sass" scoped>
-  .navbar
-    height: 50px
-    display: flex
-    flex-flow: row wrap
-    justify-content: space-around
-    align-items: center
-    background: red
+@mixin for-phone-only
+  @media (max-width: 768px)
+    @content
+
+@mixin for-pc-only
+  @media (min-width: 769px)
+    @content
+
+.navbar
+  display: flex
+  flex-flow: row wrap
+  justify-content: space-around
+  align-items: center
+  background: #0E0B26
+
+  @include for-pc-only
+     height: 80px
+
 </style>

@@ -1,6 +1,7 @@
 <template>
     <section>
-        <b-table :data="flights">
+
+        <b-table :data="flights" scrollable sticky-header height="50vh">
           <template slot-scope="props">
 
             <b-table-column label="Logo lini">

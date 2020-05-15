@@ -1,6 +1,6 @@
 <template>
   <b-field label="Okres pobytu">
-    <b-datepicker placeholder="Wybierz date wylotu oraz powrotu" v-model="dates" range @input="datesRange"> </b-datepicker>
+    <b-datepicker placeholder="Okres lotu" v-model="dates" range @input="datesRange"> </b-datepicker>
   </b-field>
 </template>
 
