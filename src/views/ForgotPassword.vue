@@ -27,7 +27,10 @@ export default class ForgotPassword extends Vue {
     forgotPassword(this.usernameOrEmail)
     .then(response => {
       showSuccess(response)
-      this.routTologin()
+      setTimeout(() => {
+        this.isBlocked = false
+        this.routTologin()
+      }, 3000)
     })
     .catch(err => {
       this.isBlocked = false
@@ -36,10 +39,7 @@ export default class ForgotPassword extends Vue {
   }
 
   routTologin() {
-    setTimeout(() => {
-        this.isBlocked = false
-        this.$router.push('/login')
-      }, 3000)
+    this.$router.push('/login')
   }
 }
 </script>
