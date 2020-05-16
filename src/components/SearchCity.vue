@@ -1,6 +1,6 @@
 <template>
   <section>
-    <b-field label="Wyszukaj miasto">
+    <b-field :label="searchLabel">
       <b-autocomplete
         :data="cities"
         placeholder="Wroclaw"
@@ -21,7 +21,7 @@ import debounce from 'lodash/debounce'
 import { Getter, Action } from 'vuex-class'
 import { City } from '../store/models'
 import { searchCity } from '../store/api'
-import { Emit } from 'vue-property-decorator'
+import { Emit, Prop } from 'vue-property-decorator'
 
 @Component
 export default class SearchCity extends Vue {
@@ -30,6 +30,8 @@ export default class SearchCity extends Vue {
   private isFetching: boolean = false
   private getCities!: (cityName: string) => void
   private selected: City | null = null
+  @Prop()
+  private searchLabel!: string
 
   created() {
     this.getCities = debounce((cityName) => {

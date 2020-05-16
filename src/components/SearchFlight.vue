@@ -1,8 +1,8 @@
 <template>
   <div class="flights-container">
     <div class="searching-container">
-      <SearchCity @selected-city="setOriginCity"/>
-      <SearchCity @selected-city="setDestinationCity"/>
+      <SearchCity @selected-city="setOriginCity" searchLabel="Skąd"/>
+      <SearchCity @selected-city="setDestinationCity" searchLabel="Dokąd"/>
       <PickDate @dates-range="setStayDate"/>
       <button class="button" style="background: #F8E81D; color: black" :disabled="isBlocedSearching()" @click="searchFlights"> Wyszukaj loty </button>
     </div>
