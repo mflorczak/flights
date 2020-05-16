@@ -1,36 +1,36 @@
 <template>
     <section>
 
-        <b-table :data="flights" scrollable sticky-header height="50vh">
+        <b-table :data="flights" scrollable sticky-header height="70vh">
           <template slot-scope="props">
 
-            <b-table-column label="Logo lini">
+            <b-table-column label="Logo lini" cell-class="background-table-color">
               <img width="100" :src="`${props.row.carrier.ImageUrl}`">
             </b-table-column>
 
-            <b-table-column label="Skąd">
+            <b-table-column label="Skąd" cell-class="background-table-color">
                 {{ props.row.originStation.city.Name }}
             </b-table-column>
 
-            <b-table-column label="Dokąd">
+            <b-table-column label="Dokąd" cell-class="background-table-color">
                 {{ props.row.destinationStation.city.Name }}
             </b-table-column>
 
-            <b-table-column field="departureDateTime" label="Data wylotu" centered>
-                <span class="tag is-warning">
+            <b-table-column field="departureDateTime" label="Data wylotu" cell-class="background-table-color" centered>
+                <span class="tag" style="background: white; color: black">
                     {{ prettyPrintDate(props.row.departureDateTime) }}
                 </span>
             </b-table-column>
 
-             <b-table-column field="arrivalDateTime" label="Data przylotu" centered>
-                <span class="tag is-warning">
+             <b-table-column field="arrivalDateTime" label="Data przylotu" cell-class="background-table-color" centered>
+                <span class="tag" style="background: white; color: black">
                     {{ prettyPrintDate(props.row.arrivalDateTime) }}
                 </span>
             </b-table-column>
 
 
-            <b-table-column label="Rezerwacja" centered>
-              <button class="button is-success" @click="bookFlight(props.row)" :disabled="isBooking">Zarezerwuj</button>
+            <b-table-column label="Rezerwacja" cell-class="background-table-color" centered>
+              <button class="button book-button-color" @click="bookFlight(props.row)" :disabled="isBooking">Zarezerwuj</button>
             </b-table-column>
 
           </template>
@@ -77,3 +77,11 @@ export default class PresentAvailableFlights extends Vue {
   }
 }
 </script>
+
+<style lang="sass" scoped>
+.background-table-color
+  background: #E0E8ED !important
+.book-button-color
+  background: #0E0B26
+  color: white
+</style>

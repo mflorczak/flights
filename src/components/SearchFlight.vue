@@ -4,7 +4,7 @@
       <SearchCity @selected-city="setOriginCity"/>
       <SearchCity @selected-city="setDestinationCity"/>
       <PickDate @dates-range="setStayDate"/>
-      <button class="button is-info" :disabled="isBlocedSearching()" @click="searchFlights"> Wyszukaj loty </button>
+      <button class="button" style="background: #F8E81D; color: black" :disabled="isBlocedSearching()" @click="searchFlights"> Wyszukaj loty </button>
     </div>
     <PresentAvailableFlights :flights="flights" class="available-flights-container"/>
   </div>
@@ -64,33 +64,42 @@ export default class SearchFlight extends Vue {
 
 <style lang="sass" scoped>
 @mixin for-phone-only
-  @media (max-width: 1300px)
+  @media (max-width: 768px)
     @content
 
 @mixin for-pc-only
-  @media (min-width: 1301px)
+  @media (min-width: 769px)
     @content
 
 .searching-container
   display: flex
   @include for-phone-only
     flex-flow: column nowrap
+    justify-content: space-between
+    margin-bottom: 10px
+    width: 90%
+    height: 35vh
+    // align-items: center
+  @include for-pc-only
+    flex-flow: row wrap
     justify-content: space-around
-  // flex-flow: row wrap
-  // justify-content: space-around
-  // align-items: flex-end
-  // align-self: normal
-  // margin-bottom: 40px
+    align-items: flex-end
+    align-self: normal
+    margin-bottom: 40px
 .field:not(:last-child)
   margin-bottom: 0px !important
 
 .flights-container
+  background: #F2F2F3
   display: flex
   flex-flow: column nowrap
   align-items: center
-  background: #90dfe28c
-  background-image:  url("../assets/amazing_2-wallpaper-1920x1200.jpg")
-  // height: calc( 100vh - 54px)
+  @include for-pc-only
+    height: calc( 100vh -  80px)
+    justify-content: center
+  @include for-phone-only
+    // height: 100vh
+    justify-content: space-around
 .available-flights-container
   width: 90%
   // height: 90vh
